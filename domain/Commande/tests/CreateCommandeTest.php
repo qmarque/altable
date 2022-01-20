@@ -2,10 +2,16 @@
 
 use Domain\Commande\UseCase\CreateCommande;
 use Domain\Commande\Entity\Commande;
-use function PHPUnit\Framework\assertInstanceOf;
+use Domain\Commande\Test\Adapters\InMemoryCommandeRepository;
 
-it("should create a post", function() {
-    $useCase = new CreateCommande;
+
+use function PHPUnit\Framework\assertInstanceOf;
+use function PHPUnit\Framework\assertEquals;
+
+it("should create a commande", function() {
+    $repository = new InMemoryCommandeRepository;
+    
+    $useCase = new CreateCommande($repository);
 
     $commande = $useCase->execute([
         'title' => 'Mon titre',
@@ -14,4 +20,5 @@ it("should create a post", function() {
     ]);
 
     assertInstanceOf(Commande::class, $commande);
+    assertEquals($commande, $repository->findOne($commande->uuid));
 });

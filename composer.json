@@ -8,5 +8,10 @@
         "psr-4": {
             "Domain\\Commande\\": "domain/Commande/src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Domain\\Commande\\Test\\": "domain/Commande/tests/"
+        }
     }
 }
