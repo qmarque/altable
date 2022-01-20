@@ -3,5 +3,10 @@
         "pestphp/pest": "^1.21",
         "spatie/phpunit-watcher": "^1.23",
         "symfony/var-dumper": "^5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Domain\\Commande\\": "domain/Commande/src/"
+        }
     }
 }
