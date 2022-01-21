@@ -2,22 +2,22 @@
 
 namespace Domain\Commande\UseCase;
 
+use Domain\Commande\Port\CommandeRepositoryInterface;
 use Domain\Commande\Entity\Commande;
-use Domain\Commande\Test\Adapters\InMemoryCommandeRepository;
 
 class CreateCommande
 {
-    protected InMemoryCommandeRepository $commandeRepository;
-    public function __construct(InMemoryCommandeRepository $repository)
+    protected CommandeRepositoryInterface $commandeRepository;
+    public function __construct(CommandeRepositoryInterface $repository)
     {
         $this->commandeRepository = $repository;
     }
 
     public function execute(array $postData) : ?Commande {
-        $commande = new Commande($postData['title'], $postData['content'], $postData['publishedAt']);
+        $commande = new Commande($postData['title'], $postData['content']);
         
         $this->commandeRepository->save($commande);
-        
+
         return $commande;
     }
 }
