@@ -6,23 +6,6 @@ use Domain\Commande\Port\CommandeRepositoryInterface;
 use Domain\Commande\Entity\Commande;
 use Domain\Commande\Test\Adapters\Database;
 
-// class CreateCommande
-// {
-//     protected CommandeRepositoryInterface $commandeRepository;
-//     public function __construct(CommandeRepositoryInterface $repository)
-//     {
-//         $this->commandeRepository = $repository;
-//     }
-
-//     public function execute(array $postData) : ?Commande {
-//         $commande = new Commande($postData['title'], $postData['content']);
-        
-//         $this->commandeRepository->save($commande);
-
-//         return $commande;
-//     }
-// }
-
 // Headers requis
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
