@@ -2,20 +2,16 @@
 namespace Domain\Commande\Entity; 
 use PDO;
 
-class Commande{
+class Service{
     // Connexion
     private $connexion;
-    private $table = "commande";
+    private $table = "service";
 
     // object properties
     public $id;
-    public $pourboire;
-    public $addition;
-    public $al_table_id;
-    public $client_id;
-    public $restaurateur_id;
-    public $service_id;
-
+    public $heure_ouverture;
+    public $heure_fermeture;
+    public $plan_id;
 
     /**
      * Constructeur avec $db pour la connexion à la base de données
@@ -50,42 +46,27 @@ class Commande{
      *
      * @return void
      */
-    public function creer($nbConvives){
+    public function creer(){
 
         // Ecriture de la requête SQL en y insérant le nom de la table
-        $sql1 = "INSERT INTO " . $this->table . " SET pourboire=:pourboire, addition=:addition, al_table_id=:al_table_id, client_id=:client_id, restaurateur_id=:restaurateur_id, service_id=:service_id, ";
+        $sql = "INSERT INTO " . $this->table . " SET heure_ouverture=:heure_ouverture, heure_fermeture=:heure_fermeture, plan_id=:plan_id";
 
         // Préparation de la requête
-        $query1 = $this->connexion->prepare($sql1);
+        $query = $this->connexion->prepare($sql);
 
         // Protection contre les injections
-        $this->pourboire=htmlspecialchars(strip_tags($this->pourboire));
-        $this->addition=htmlspecialchars(strip_tags($this->addition));
-        $this->al_table_id=htmlspecialchars(strip_tags($this->al_table_id));
-        $this->client_id=htmlspecialchars(strip_tags($this->client_id));
-        $this->restaurateur_id=htmlspecialchars(strip_tags($this->restaurateur_id));
-        $this->service_id=htmlspecialchars(strip_tags($this->service_id));
+        $this->heure_ouverture=htmlspecialchars(strip_tags($this->heure_ouverture));
+        $this->heure_fermeture=htmlspecialchars(strip_tags($this->heure_fermeture));
+        $this->plan_id=htmlspecialchars(strip_tags($this->plan_id));
 
         // Ajout des données protégées
-        $query1->bindParam(":pourboire", $this->pourboire);
-        $query1->bindParam(":addition", $this->addition);
-        $query1->bindParam(":al_table_id", $this->al_table_id);
-        $query1->bindParam(":client_id", $this->client_id);
-        $query1->bindParam(":restaurateur_id", $this->restaurateur_id);
-        $query1->bindParam(":service_id", $this->service_id);
-        
-        $sql2 = "UPDATE al_table SET nbConvives=:nbConvives WHERE id=:al_table_id";
-
-        $query2 = $this->connexion->prepare($sql2);
-
-        $query2->bindParam(":nbConvives", $nbConvives);
-        $query2->bindParam(":al_table_id", $this->al_table_id);
+        $query->bindParam(":heure_ouverture", $this->heure_ouverture);
+        $query->bindParam(":heure_fermeture", $this->heure_fermeture);
+        $query->bindParam(":plan_id", $this->plan_id);
 
         // Exécution de la requête
-        if($query1->execute()){
-            if ($query2->execute()) {
-                return true;
-            }
+        if($query->execute()){
+            return true;
         }
         return false;
     }

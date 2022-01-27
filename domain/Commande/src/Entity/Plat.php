@@ -1,6 +1,7 @@
 <?php
 namespace Domain\Commande\Entity; 
 use PDO;
+
 class Plat{
     // Connexion
     private $connexion;
